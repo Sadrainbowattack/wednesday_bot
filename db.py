@@ -5,6 +5,8 @@ client = MongoClient(settings.MONGO_LINK)
 
 db = client[settings.MONGO_DB]
 
+#User registration
+
 def get_or_create_user(db, effective_user, chat_id):
     user = db.users.find_one({"user_id": effective_user.id})
     if not user:
@@ -15,6 +17,8 @@ def get_or_create_user(db, effective_user, chat_id):
         }
         db.users.insert_one(user)
     return user
+
+#Subscribtion part
 
 def subscribe_user(db, user_data):
     if not user_data.get('subscribed'):

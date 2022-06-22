@@ -8,8 +8,7 @@ from telegram.utils.request import Request
 import pytz
 
 from handlers import greet_user, send_random_frog, check_user_photo, save_frog_plan, subscribe, unsubscribe
-from jobs import repeating_frog_pic, delete_frog, save_pic_red
-
+from jobs import repeating_frog_pic
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
 
@@ -45,13 +44,9 @@ def main():
         dp.add_handler(MessageHandler(Filters.photo, save_frog_plan))
 
     jq = mybot.job_queue
-    target_time_send = time(12, 46, tzinfo=pytz.timezone('Europe/Moscow'))
-    target_time_del = time(12, 50, tzinfo=pytz.timezone('Europe/Moscow'))
-    target_time_save = time(18, 30, tzinfo=pytz.timezone('Europe/Moscow'))
+    target_time_send = time(11, 00, tzinfo=pytz.timezone('Europe/Moscow'))
     target_day = [2]
     jq.run_daily(repeating_frog_pic, target_time_send, target_day)
-    jq.run_daily(delete_frog, target_time_del, target_day)
-    jq.run_daily(save_pic_red, target_time_save, target_day)
 
 
     dp.add_handler(CommandHandler('start', greet_user))

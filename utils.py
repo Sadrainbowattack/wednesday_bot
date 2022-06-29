@@ -3,6 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import urllib.request
 from telegram import ReplyKeyboardMarkup
+from glob import glob
+import logging
 
 def main_keyboard():
     return ReplyKeyboardMarkup([['Random frog', 'Save my frog'], ['Subscribe', 'Unsubscribe']], True, True)
@@ -36,9 +38,15 @@ def get_pic_url():
 
 def save_pic_red():
     stack = get_pic_url()
-    print(1)
     filename = stack[-10:-5]
-    print(2)
     filepath = os.path.join('planned_frogs/', f'{filename}.jpg')
     urllib.request.urlretrieve(stack, filepath)
     print('saved')
+
+def delete_frog():
+    try:
+        frog_pic_list = glob('planned_frogs/*.jp*g')
+        frog_pic_name = frog_pic_list[0]
+        os.replace(frog_pic_name, os.path.join('old_frogs', frog_pic_name[-7:]))
+    except IndexError:
+        logging.info("Have no frogs")

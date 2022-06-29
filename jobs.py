@@ -16,11 +16,3 @@ def repeating_frog_pic(context):
             logging.info("Have no frogs")
         except BadRequest:
             logging.info(f"Chat {user['chat_id']} not found")
-
-def delete_frog(context):
-    try:
-        frog_pic_list = glob('planned_frogs/*.jp*g')
-        frog_pic_name = frog_pic_list[0]
-        os.replace(frog_pic_name, os.path.join('old_frogs', frog_pic_name[-7:]))
-    except IndexError:
-        logging.info("Have no frogs")

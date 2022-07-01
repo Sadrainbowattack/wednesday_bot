@@ -1,6 +1,4 @@
-from ast import Index
 from glob import glob
-import os
 import logging
 from telegram.error import BadRequest
 from db import db, get_subscription
